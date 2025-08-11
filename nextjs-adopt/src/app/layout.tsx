@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Ovo } from "next/font/google";
 import "./globals.css";
+import StoreProvider from "./StoreProvider";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -25,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth dark">
       <body className={`${outfit.className} ${ovo.className} antialiased leading-8 overflow-x-hidden scroll-smooth dark:bg-darkTheme dark:text-white`}>
-        {children}
+        <StoreProvider>{children}</StoreProvider>
       </body>
     </html>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { assets, workData } from "../../../assets/assets";
+import { assets, workData } from "../../assets/assets";
 import Image from "next/image";
 
 const Work = () => {

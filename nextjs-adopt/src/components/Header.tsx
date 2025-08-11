@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { assets } from "../../../assets/assets";
+import { assets } from "../../assets/assets";
 
 function Header() {
   return (

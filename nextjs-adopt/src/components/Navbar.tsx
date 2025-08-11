@@ -1,16 +1,21 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { assets } from "../../../assets/assets";
+import { assets } from "../../assets/assets";
 import Image from "next/image";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { switchMode } from "@/lib/features/theme/themeSlice";
 
 type NavbarProps = {
   isDarkMode: boolean;
   setIsDarkMode: (value: any) => void;
 };
 
-const Navbar = ({ isDarkMode, setIsDarkMode }: NavbarProps) => {
+const Navbar = () => {
   const [isScroll, setIsScroll] = useState(false);
   const sideMenuRef = useRef<HTMLUListElement | null>(null);
+
+  const isDarkMode = useAppSelector((state) => state.theme.isDarkMode);
+  const dispatch = useAppDispatch();
 
   const openMenu = () => {
     if (sideMenuRef.current) {
@@ -99,7 +104,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }: NavbarProps) => {
         </ul>
 
         <div className="flex items-center gap-4">
-          <button onClick={() => setIsDarkMode((prev: boolean) => !prev)}>
+          <button onClick={() => dispatch(switchMode())}>
             <Image
               src={isDarkMode ? assets.sun_icon : assets.moon_icon}
               alt="moon"

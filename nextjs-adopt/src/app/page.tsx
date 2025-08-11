@@ -1,22 +1,25 @@
 "use client"
-import Navbar from "./components/Navbar";
-import Header from "./components/Header";
-import About from "./components/About";
-import Services from "./components/Services";
-import Work from "./components/Work";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-import { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+import Header from "../components/Header";
+import About from "../components/About";
+import Services from "../components/Services";
+import Work from "../components/Work";
+import Contact from "../components/Contact";
+import Footer from "../components/Footer";
+import { useEffect } from "react";
+import { useAppSelector, useAppDispatch } from "@/lib/hooks";
+import { switchMode, setDarkMode, setLightMode } from "@/lib/features/theme/themeSlice";
 
 export default function Home() {
 
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const isDarkMode = useAppSelector((state) => state.theme.isDarkMode);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      setIsDarkMode(true);
+      dispatch(setDarkMode());
     } else {
-      setIsDarkMode(false);
+      dispatch(setLightMode());
     }
   }, []);
 
@@ -32,13 +35,13 @@ export default function Home() {
 
   return (
    <>
-    <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}/>
-    <Header isDarkMode={isDarkMode}/>
-    <About isDarkMode={isDarkMode}/>
-    <Services isDarkMode={isDarkMode}/>
-    <Work isDarkMode={isDarkMode}/>
-    <Contact isDarkMode={isDarkMode}/>
-    <Footer isDarkMode={isDarkMode}/>
+    <Navbar/>
+    <Header/>
+    <About/>
+    <Services/>
+    <Work/>
+    <Contact/>
+    <Footer/>
    </>
   );
 }
