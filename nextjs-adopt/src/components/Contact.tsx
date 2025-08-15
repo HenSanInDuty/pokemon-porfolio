@@ -6,7 +6,7 @@ const Contact = () => {
   return (
     <div
       id="contact"
-      className="w-full px-[12%] py-10 scroll-mt-20 bg-[url('/footer-bg-color.png')] bg-no-repeat bg-center bg-[length:90%_auto] font-outfit"
+      className="w-full px-[12%] py-10 scroll-mt-20 dark:bg-transparent bg-[url('/footer-bg-color.png')] bg-no-repeat bg-center bg-[length:90%_auto] font-outfit"
     >
       <h4 className="text-center mb-2 text-lg">Connect with me</h4>
       <h2 className="text-center text-5xl font-ovo">Get in touch</h2>
@@ -21,20 +21,20 @@ const Contact = () => {
             type="text"
             placeholder="Enter your name"
             required
-            className="flex-1 p-3 outline-none border-[0.5px] border-gray-400 rounded-md bg-white"
+            className="flex-1 p-3 outline-none border-[0.5px] border-gray-400 rounded-md bg-white dark:text-gray-700"
           />
           <input
             type="email"
             placeholder="Enter your email"
             required
-            className="flex-1 p-3 outline-none border-[0.5px] border-gray-400 rounded-md bg-white"
+            className="flex-1 p-3 outline-none border-[0.5px] border-gray-400 rounded-md bg-white dark:text-gray-700"
           />
         </div>
         <textarea
           rows={6}
           placeholder="Enter your message"
           required
-          className="w-full p-4 outline-none border-[0.5px] border-gray-400 rounded-md bg-white mb-6"
+          className="w-full p-4 outline-none border-[0.5px] border-gray-400 rounded-md bg-white mb-6 dark:text-gray-700"
         ></textarea>
 
         <button

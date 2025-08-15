@@ -8,9 +8,9 @@ function Header() {
     <div className="w-11/12 max-w-3xl text-center mx-auto h-screen flex flex-col items-center justify-center gap-4 font-outfit">
       <div className="mt-20">
         <Image
-          src={assets.profile_img}
+          src={assets.profile_img_2}
           alt="profile_img"
-          className="rounded-full w-32"
+          className="rounded-full w-32 aspect-square object-cover [object-position:45%_center]"
         />
         </div>
         <h3 className="flex items-end gap-2 text-xl md:text-2xl mb-3 font-ovo">
