@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 import LinkWithArrow from "./LinkWithArrow";
@@ -7,7 +9,7 @@ import WeatherWidget from "./WeatherWidget";
 
 const Navbar = () => {
   return (
-    <div className="w-full h-20 shadow-md flex justify-between items-center px-10">
+    <div className="w-full h-20 shadow-md flex justify-around items-center px-10">
       <Link href={"/"}>
         <Image
           src={assets.logo}
@@ -17,7 +19,7 @@ const Navbar = () => {
           className="aspect-square hover:cursor-pointer"
         ></Image>
       </Link>
-      <ul className="flex justify-center items-center h-full gap-10 text-primary text-xl flex-1">
+      <ul className="flex justify-center items-center h-full gap-10 text-primary text-xl flex-2">
         <li>
           <LinkWithArrow href={"/"} name="Home" />
         </li>
@@ -31,7 +33,7 @@ const Navbar = () => {
           <LinkWithArrow href={"/contact"} name="Contact" />
         </li>
       </ul>
-      <WeatherWidget city="Montreal" />
+      <WeatherWidget />
     </div>
   );
 };

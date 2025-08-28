@@ -1,64 +1,72 @@
+// to install dependencies run:
+// npm install swr framer-motion @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons @fortawesome/fontawesome-svg-core
+
 'use client'
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
+import useSWR from 'swr';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { motion } from 'framer-motion';
+import {
+  faCloudSun,
+  faCloud,
+  faCloudRain,
+  faCloudShowersHeavy,
+  faSnowflake,
+  faSun,
+  faSmog,
+  faBolt,
+} from '@fortawesome/free-solid-svg-icons';
+import WeatherResponse from '@/types/weather/WeatherResponse';
 
-import styles from '../styles/weather.module.css';
-import WeatherData from '@/types/WeatherData';
-import WeatherWidgetProps from '@/types/WeatherWidgetProps';
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-const WeatherWidget: React.FC<WeatherWidgetProps> = ({ city, coordinates }) => {
-  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+export default function Weather() {
+  const [useCelsius, setCelsius] = useState(true);
+  const { data, error } = useSWR<WeatherResponse>('/api/weather', fetcher);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let query = '';
+  if (error) return <div>Failed to load weather data</div>;
+  if (!data) return <div>Loading...</div>;
 
-        if (city) {
-          query = `q=${city}`;
-        } else if (coordinates) {
-          query = `lat=${coordinates.lat}&lon=${coordinates.lon}`;
-        } else {
-          console.error('Please provide either city or coordinates.');
-          return;
-        }
+  const { weather, main, name } = data;
+  console.log(data);
+  const { temp } = main;
+  const { description } = weather[0];
 
-        const response = await fetch(`/api/weather?${query}`);
-        const data: WeatherData = await response.json();
+  const kelvinToCelsius = (temp: number) => {
+    return temp - 273.15; // Convert from Kelvin to Celsius
+  };
 
-        setWeatherData(data);
-      } catch (error) {
-        console.error('Error fetching weather data:', error);
-      }
-    };
+  const celsius = kelvinToCelsius(temp);
+  const fahrenheit = (celsius * 9) / 5 + 32;
 
-    fetchData();
-  }, [city, coordinates]);
+  const toggleTemperature = () => setCelsius((celsius) => !celsius);
+
+  const weatherIcons: Record<string, typeof faCloud> = {
+    Snow: faSnowflake,
+    Thunderstorm: faBolt,
+    Rain: faCloudShowersHeavy,
+    Drizzle: faCloudRain,
+    Mist: faSmog,
+    Clear: faSun,
+    Haze: faSun,
+    Clouds: faCloud,
+  };
+
+  const icon = weatherIcons[description] || faCloud;
 
   return (
-    <div className={styles.weatherWidget}>
-      {!weatherData ? (
-        <div>Loading weather ...</div>
-      ) : (
-        <>
-          <h2>{weatherData.name}</h2>
-
-          <p className={styles.weather}>{weatherData.weather[0].description}</p>
-
-          <div className={styles.currentWeather}>
-            <img
-              src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
-              alt={weatherData.weather[0].description}
-            />
-            <div>{Math.round(weatherData.main.temp)}°C</div>
-          </div>
-
-          <p className={styles.feelsLike}>
-            Feels like: {Math.round(weatherData.main.feels_like)}°C
-          </p>
-        </>
-      )}
-    </div>
+    <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+      <FontAwesomeIcon icon={icon} className="mr-2" />
+      {(celsius < 8 && <span className="mr-1">❄️</span>) ||
+        (celsius > 30 && <span className="mr-1">🔥</span>)}
+      <span onMouseOver={toggleTemperature} onMouseLeave={toggleTemperature} className="font-bold">
+        {useCelsius ? `${Math.round(celsius)} °C` : `${Math.round(fahrenheit)} °F`}
+      </span>{' '}
+      <span className="text-xs">({description})</span>
+      <span className="font-bold focus:outline-none transition duration-300 ease-in-out hover:text-indigo-900 dark:hover:text-indigo-200">
+        {name}
+      </span>
+      .
+    </motion.p>
   );
-};
-
-export default WeatherWidget;
+}
