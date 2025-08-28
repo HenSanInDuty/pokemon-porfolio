@@ -64,7 +64,7 @@ export default function Weather() {
       </span>{' '}
       <span className="text-xs">({description})</span>
       <span className="font-bold focus:outline-none transition duration-300 ease-in-out hover:text-indigo-900 dark:hover:text-indigo-200">
-        {name}
+        {` in ${name}`}
       </span>
       .
     </motion.p>
