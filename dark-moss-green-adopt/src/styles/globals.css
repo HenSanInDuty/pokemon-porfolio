@@ -8,10 +8,19 @@
   src: url("/fonts/raleway/Raleway-Regular.ttf") format("woff2");
 }
 
+@font-face {
+  font-family: RalewayBold;
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url("/fonts/raleway/Raleway-Bold.ttf") format("woff2");
+}
+
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-raleway: 'Raleway', sans-serif;
+  --font-raleway-bold: 'RalewayBold', sans-serif;
   --color-primary: #40513B;
   --color-secondary: #609966;
   --color-third: #9DC08B;

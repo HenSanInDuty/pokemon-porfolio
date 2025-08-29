@@ -1,24 +1,27 @@
 "use client";
-
-import Link from "next/link";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import LinkWithArrow from "./LinkWithArrow";
-import Image from "next/image";
-import assets from "../../public/images/assets";
-import WeatherWidget from "./WeatherWidget";
 
 const Navbar = () => {
+  const navbar = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 1) {
+        console.log("scrolled");
+        navbar.current?.classList.add("backdrop-blur-md");
+      } else {
+        navbar.current?.classList.remove("backdrop-blur-md");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="w-full h-20 shadow-md flex justify-around items-center px-10">
-      <Link href={"/"}>
-        <Image
-          src={assets.logo}
-          alt="logo"
-          height={100}
-          width={100}
-          className="aspect-square hover:cursor-pointer"
-        ></Image>
-      </Link>
+    <div ref={navbar} className="w-full h-20 flex justify-around items-center px-10 fixed top-0">
       <ul className="flex justify-center items-center h-full gap-10 text-primary text-xl flex-2">
         <li>
           <LinkWithArrow href={"/"} name="Home" />
@@ -33,7 +36,6 @@ const Navbar = () => {
           <LinkWithArrow href={"/contact"} name="Contact" />
         </li>
       </ul>
-      <WeatherWidget />
     </div>
   );
 };

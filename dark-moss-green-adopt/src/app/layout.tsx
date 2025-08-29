@@ -27,11 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[url(/images/bg-11-full.jpg)] h-screen scroll-smooth font-raleway`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-forth h-screen scroll-smooth font-raleway`}
       >
         <Navbar></Navbar>
           {children}
-          ehehe
         <Footer></Footer>
       </body>
     </html>
