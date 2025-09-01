@@ -2,7 +2,7 @@ import LinkWithArrowsProps from "@/types/LinkWithArrow";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import assets from "../../public/images/assets";
+import {assets} from "../../public/images/assets";
 
 const LinkWithArrow = ({ href, name }: LinkWithArrowsProps) => {
   return (
