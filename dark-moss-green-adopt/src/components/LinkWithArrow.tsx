@@ -6,7 +6,7 @@ import {assets} from "../../public/images/assets";
 
 const LinkWithArrow = ({ href, name }: LinkWithArrowsProps) => {
   return (
-    <div className="relative flex items-center gap-1 p-4 hover:cursor-pointer hover:-translate-y-1 duration-500 group">
+    <div className="relative flex items-center gap-1 p-4 hover:cursor-pointer hover:-translate-y-1 duration-500 group justify-center">
       <Link href={href} className="group-hover:text-secondary duration-500 mb-2">
         {name}
       </Link>
